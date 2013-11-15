@@ -6,28 +6,32 @@ window.onload = function(){
 	var convertString = function(str){
 		// Plats för förändring.		
 		// Returnera den konverterade strängen.
-		// Vid fel, kasta ett undantag med ett meddelande till användaren. 
+	// Vid fel, kasta ett undantag med ett meddelande till användaren. 
 	if (str === ""){
 	    throw {message: "FEL! Fältet måste innehålla en sträng"};
 	}
 	
+	//superSConvert kommer att innehålla den slutgiltiga strängen som presenteras
     var sArray = [],
     sconvert ="", superSConvert;
     
     for (var i = 0; i < str.length; i++) {
         if (str[i].match(/([A-ZÅÄÖ])/g)) {
+            //Hittar alla stora bokstäver i strängen och gör om dem till små och placerar dem i en variabel
             sArray[i] = str[i].replace(/([A-ZÅÄÖ])/g, str[i].toLowerCase());
         }
         else{
+            //Hittar alla små bokstäver och gör om dem till stora och placerar dem i en variabel
             sArray[i] = str[i].replace(/([a-zåäö])/g, str[i].toUpperCase());
         }
     }
 
     for (var u = 0; u < sArray.length; u++) {
+        //Gör om hela arrayen (sArray) och till en enda sträng
         sconvert += sArray[u];
-        console.log(sArray[u]);
     }
     
+    //Gör om alla stora och små "a" till "#" och sätter in dem i en ny variabel
     superSConvert = sconvert.replace(/A/gi, "#");
     
     return superSConvert;
