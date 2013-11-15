@@ -16,6 +16,7 @@ window.onload = function(){
 		if (typeof number === "string"){
 		    number = parseInt(number);
 		}
+		
         var message;
         count++;
         

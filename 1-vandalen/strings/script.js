@@ -7,13 +7,31 @@ window.onload = function(){
 		// Plats för förändring.		
 		// Returnera den konverterade strängen.
 		// Vid fel, kasta ett undantag med ett meddelande till användaren. 
+	if (str === ""){
+	    throw {message: "FEL! Fältet måste innehålla en sträng"};
+	}
 	
+    var sArray = [],
+    sconvert ="", superSConvert;
+    
+    for (var i = 0; i < str.length; i++) {
+        if (str[i].match(/([A-ZÅÄÖ])/g)) {
+            sArray[i] = str[i].replace(/([A-ZÅÄÖ])/g, str[i].toLowerCase());
+        }
+        else{
+            sArray[i] = str[i].replace(/([a-zåäö])/g, str[i].toUpperCase());
+        }
+    }
 
-
-
-
-
-
+    for (var u = 0; u < sArray.length; u++) {
+        sconvert += sArray[u];
+        console.log(sArray[u]);
+    }
+    
+    superSConvert = sconvert.replace(/A/gi, "#");
+    
+    return superSConvert;
+    
 	};
 	// ------------------------------------------------------------------------------
 
@@ -30,7 +48,7 @@ window.onload = function(){
 		p.classList.remove( "error");
 
 		try {
-			var answer = convertString(input.value) // Läser in texten från textrutan och skickar till funktionen "convertString"
+			var answer = convertString(input.value); // Läser in texten från textrutan och skickar till funktionen "convertString"
 			p.innerHTML = answer;		// Skriver ut texten från arrayen som skapats i funktionen.	
 		} catch (error){
 			p.classList.add( "error"); // Växla CSS-klass, IE10+
