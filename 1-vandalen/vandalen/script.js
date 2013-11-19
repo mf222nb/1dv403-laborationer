@@ -4,10 +4,9 @@ var makePerson = function(persArr){
 
 
 	// Din kod här...
-    var name;
-    var averageAge;
     var personAges;
     var totalSum;
+    var personNames;
     var personObj = {};
     
     //Skapar en array som tar ut alla age från persArr arrayen
@@ -28,7 +27,20 @@ var makePerson = function(persArr){
     });
     
     personObj.averageAge = Math.round(totalSum/personAges.length);
-    //console.log(personAges); 
+    
+    personNames = persArr.map(function(personName){
+       return personName.name;
+    });
+    
+    //Sorterar arrayen på alla tecekn inklusive å, ä och ö
+    personNames.sort(function(a, b){
+        return a.localeCompare(b);
+        
+    });
+    
+    personObj.names = personNames.reduce(function(prevName, name, i, personNames){
+        return prevName + ", " + name;
+    });
     
     return personObj;
     
