@@ -13,9 +13,9 @@ window.onload = function(){
 	
 	//superSConvert kommer att innehålla den slutgiltiga strängen som presenteras
     var sArray = [],
-    sconvert ="", superSConvert;
+    sconvert ="", superSConvert, i, u;
     
-    for (var i = 0; i < str.length; i++) {
+    for (i = 0; i < str.length; i++) {
         if (str[i].match(/([A-ZÅÄÖ])/g)) {
             //Hittar alla stora bokstäver i strängen och gör om dem till små och placerar dem i en variabel
             sArray[i] = str[i].replace(/([A-ZÅÄÖ])/g, str[i].toLowerCase());
@@ -26,7 +26,7 @@ window.onload = function(){
         }
     }
 
-    for (var u = 0; u < sArray.length; u++) {
+    for (u = 0; u < sArray.length; u++) {
         //Gör om hela arrayen (sArray) och till en enda sträng
         sconvert += sArray[u];
     }
