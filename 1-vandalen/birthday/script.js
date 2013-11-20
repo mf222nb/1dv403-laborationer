@@ -10,13 +10,13 @@ window.onload = function(){
         throw {message: "FEL! Ange i formatet ÅÅÅÅ-MM-DD"};
     }
 
-    var CurrentTime = new Date();
+    var currentTime = new Date();
         
     var array = date.split('-');
     //Sätter datumet till år, månader och dagar
     var birthday = new Date(array[0], array[1] - 1, array[2]);
     //Omvandlar allt till dagar
-    var days = ((birthday.getTime() - CurrentTime.getTime())/(1000*60*60*24));
+    var days = ((birthday.getTime() - currentTime.getTime())/(1000*60*60*24));
     
     var remainingDays = Math.ceil(days);
     //Tittar så att man inte matar in ett datum som redan har varit och kastar då ett meddelande till användaren
