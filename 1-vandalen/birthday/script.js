@@ -9,21 +9,24 @@ window.onload = function(){
     if (!date.match(/(\d{4})\-(\d{2})\-(\d{2})/)) {
         throw {message: "FEL! Ange i formatet ÅÅÅÅ-MM-DD"};
     }
-
+    
+    //Hämtar ut ett datum object
     var currentTime = new Date();
         
     var array = date.split('-');
     //Sätter datumet till år, månader och dagar
-    var birthday = new Date(array[0], array[1] - 1, array[2]);
+    var birthday = new Date(currentTime.getFullYear(), array[1] - 1, array[2]);
+    
+    if (birthday.getTime() < currentTime.getTime() && birthday.getDate() !== currentTime.getDate()) {
+        birthday.setFullYear( birthday.getFullYear() + 1);
+    }
+    
     //Omvandlar allt till dagar
     var days = ((birthday.getTime() - currentTime.getTime())/(1000*60*60*24));
     
+    //Tar bort alla decimaler
     var remainingDays = Math.ceil(days);
-    //Tittar så att man inte matar in ett datum som redan har varit och kastar då ett meddelande till användaren
-    if(remainingDays < 0)
-    {
-        throw {message: 'Du kan inte ange ett datum som redan varit'};
-    }
+
     return remainingDays;
 
 	};
