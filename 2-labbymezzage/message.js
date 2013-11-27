@@ -1,19 +1,19 @@
-function Message(message, date) {
+function Message(_message, _date) {
     
     this.getText = function(){
-        return message;
+        return _message;
     };
     
-    this.setText = function(_text){
-        message = _text;  
+    this.setText = function(text){
+        _message = text;  
     };
     
     this.getDate = function(){
-        return date;
+        return _date;
     };
     
-    this.setDate = function(_date){
-        date = _date;
+    this.setDate = function(date){
+        _date = date;
     };
 }
 
