@@ -10,8 +10,7 @@ var MessageBoard = {
         
         init: function(){
             var that = this;
-            
-            
+ 
             var sendButton = document.getElementById("send");
             //That = this ger mig en referens till mitt MessageBoard object. Den anonyma funktionen är en referens till den fuktionen
             //som ska köras när eventet triggas
@@ -22,48 +21,60 @@ var MessageBoard = {
         
         send: function(e){
             e.preventDefault();
+            //Hämtar ut vad som skrivs i chatrutan
             var strMessage = document.getElementById("textArea").value;
             var message = new Message(strMessage, new Date());
             //Tömmer chatten så att man själv slipper suddar
             document.getElementById("textArea").value = "";
+            //Lägger till meddelandet sist i arrayen
             this.messages.push(message);
             
+            //Skickr meddelandet och id:t i arrayen och man måste ta -1 för att arrayer är 0 indexerade
             this.renderMessage(message,  (this.messagesCount() - 1));
             
             this.messagesCountUppdater();
         },
         
         messagesCountUppdater: function(){
+            //Uppdaterar längden på arrayen med den nya längden av arrayen och skriver ut det i en box
             var counterBox = document.getElementById("counter");
-            counterBox.innerHTML = "Antal Meddelande: " + this.messagesCount();
+            counterBox.innerHTML = "Antal meddelanden: " + this.messagesCount();
         },
         
         messagesCount: function(){
+            //Tar ut längden på arrayen
             return this.messages.length;  
         },
         
         deleteMessage: function(del, boxId){
+            //byter ut id:t på boxen mot en tomsträng så att man enbart får en siffra
             var id = boxId.replace("chatMessage", "");
-            this.messages.splice(id,1);
+            //Tar bort 1 element ur arrayen
+            this.messages.splice(id, 1);
+            //Uppdaterar längden på arrayen
             this.messagesCountUppdater();
             
             var box = document.getElementById("messagebox");
+            //Tömmer boxen som innehåller alla meddelanden mot en tomsträng
             box.innerHTML = "";
             
             this.renderAllMessages();
         },
         
         renderAllMessages: function(){
-          for (var i = 0; i < this.messagesCount(); i++) {
-              this.renderMessage(this.messages[i], i);
+            //Loopar igenom arrayen och anropar renderMessage function som bygger upp hela chatobjektet
+            //Andra argumentet "i" är en siffra som är arraynumret 
+            for (var i = 0; i < this.messagesCount(); i++) {
+                this.renderMessage(this.messages[i], i);
           }  
         },
         
         renderMessage: function(message, id){
+            //I denna function hämtar jag ut id:n och skapar nya taggar och skapar nya text noder och lägger in alla olika taggar i varandra
             var that = this;
-            var div = document.getElementById("messagebox");
+            var messageBox = document.getElementById("messagebox");
             var box = document.createElement("div");
-            var pTag = document.createElement("p");
+            var pTagText = document.createElement("p");
             var pTime = document.createElement("p");
             var deleteButton = document.createElement("a");
             
@@ -74,12 +85,12 @@ var MessageBoard = {
             var textMsg = document.createTextNode(message.getHTMLText());
             deleteButton.innerHTML = "Ta bort";
             
-            pTag.appendChild(textMsg);
+            pTagText.appendChild(textMsg);
             pTime.appendChild(time);
-            box.appendChild(pTag);
+            box.appendChild(pTagText);
             box.appendChild(pTime);
             box.appendChild(deleteButton);
-            div.appendChild(box);
+            messageBox.appendChild(box);
             
             deleteButton.addEventListener("click", function(del){
                 that.deleteMessage(del, box.id);
@@ -89,5 +100,4 @@ var MessageBoard = {
 
 window.onload = function () {
     MessageBoard.init();
-    //MessageBoard.messageBox();
 };
