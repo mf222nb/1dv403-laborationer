@@ -19,7 +19,7 @@ function Message(_message, _date) {
 
 //Functoner att hämta ut olika saker ur vår konstruktor
 Message.prototype.toString = function() {
-    return this.getText()+ "("+this.getDate()+")";
+    return this.getText()+ "("+this.getDateText()+")";
 };
 
 Message.prototype.getHTMLText = function() {
@@ -27,5 +27,7 @@ Message.prototype.getHTMLText = function() {
 };
 
 Message.prototype.getDateText = function() {
-    return this.getDate();    
+    var messageTime = this.getDate();
+    
+    return messageTime.getHours() + ":" + messageTime.getMinutes() + ":" + messageTime.getSeconds();    
 };

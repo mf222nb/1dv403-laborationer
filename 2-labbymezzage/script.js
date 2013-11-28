@@ -23,18 +23,29 @@ var MessageBoard = {
         send: function(e){
             e.preventDefault();
             var strMessage = document.getElementById("textArea").value;
-            var message = new Message(strMessage, Date());
+            var message = new Message(strMessage, new Date());
+            document.getElementById("textArea").value = "";
             this.messages.push(message);
-            console.log(message.getText());
-            console.log(this.messages.toString());
+            
             this.renderMessage(message);
+            
+            var counter = this.messages.length;
+            var counterBox = document.getElementById("counter");
+            counterBox.innerHTML = "Antal Meddelande" + counter;
         },
         
         renderMessage: function(message){
             var div = document.getElementById("messagebox");
             var box = document.createElement("div");
-            var text = document.createTextNode(message);
-            box.appendChild(text);
+            
+            box.id = "chatMessage" + this.messages.length;
+            box.className = "boxMassage";
+            
+            var ptag = document.createElement("p");
+            var textMsg = document.createTextNode(message);
+            
+            ptag.appendChild(textMsg);
+            box.appendChild(ptag);
             div.appendChild(box);
         }
 };
