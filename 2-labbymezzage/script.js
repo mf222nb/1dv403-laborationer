@@ -17,9 +17,10 @@ var MessageBoard = {
             sendButton.addEventListener("click", function(e){
                 that.send(e);
             }, false);
+            //Gör så att om man trycker på enter knappen så skickas man direkt till send funktionen
             document.addEventListener("keypress", function(e){
                 var key = e.keyCode;
-                if(key === 13){
+                if(key === 13 && !e.shiftKey){
                     that.send(e);
                 }
             }, false);
