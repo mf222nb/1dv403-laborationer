@@ -10,13 +10,20 @@ var MessageBoard = {
         
         init: function(){
             var that = this;
- 
+            
             var sendButton = document.getElementById("send");
             //That = this ger mig en referens till mitt MessageBoard object. Den anonyma funktionen är en referens till den fuktionen
             //som ska köras när eventet triggas
             sendButton.addEventListener("click", function(e){
                 that.send(e);
             }, false);
+            document.addEventListener("keypress", function(e){
+                var key = e.keyCode;
+                if(key === 13){
+                    that.send(e);
+                }
+            }, false);
+            
         },
         
         send: function(e){
@@ -61,6 +68,13 @@ var MessageBoard = {
             this.renderAllMessages();
         },
         
+        timeStamp: function(time, boxId){
+            //Få ut det unika id:t på en box och sedan hämta ut hela tidsstämpeln från just det meddelandet i arrayen
+            var id = boxId.replace("chatMessage", "");
+            
+            alert(this.messages[id].getDate());
+        },
+        
         renderAllMessages: function(){
             //Loopar igenom arrayen och anropar renderMessage function som bygger upp hela chatobjektet
             //Andra argumentet "i" är en siffra som är arraynumret 
@@ -77,6 +91,7 @@ var MessageBoard = {
             var pTagText = document.createElement("p");
             var pTime = document.createElement("p");
             var deleteButton = document.createElement("a");
+            var timeButton = document.createElement("a");
             
             box.id = "chatMessage" + id;
             box.className = "boxMassage";
@@ -84,16 +99,23 @@ var MessageBoard = {
             var time = document.createTextNode(message.getDateText());
             var textMsg = document.createTextNode(message.getHTMLText());
             deleteButton.innerHTML = "Ta bort";
+            timeButton.innerHTML = "Full tid";
             
             pTagText.appendChild(textMsg);
             pTime.appendChild(time);
             box.appendChild(pTagText);
             box.appendChild(pTime);
             box.appendChild(deleteButton);
+            box.appendChild(timeButton);
             messageBox.appendChild(box);
             
+            //Kallar på funktionen deleteMessage när man trycker på ta bort knappen
             deleteButton.addEventListener("click", function(del){
                 that.deleteMessage(del, box.id);
+            }, false);
+            
+            timeButton.addEventListener("click", function(time){
+                that.timeStamp(time, box.id);
             }, false);
         }
 };
