@@ -2,12 +2,6 @@ var MessageBoard = {
         
         messages: [],
         
-        /*messageBox: function(messageBox){
-            var div = document.createElement("div");
-            div.id = "messagebox";
-            document.getElementById("form").insertBefore(div, document.getElementById("textArea"));
-        },*/
-        
         init: function(){
             var that = this;
             
