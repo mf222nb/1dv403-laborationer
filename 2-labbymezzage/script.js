@@ -56,6 +56,13 @@ var MessageBoard = {
         
         deleteMessage: function(del, boxId){
             //byter ut id:t på boxen mot en tomsträng så att man enbart får en siffra
+            
+            //Confirm är en inbyggd function som ger en ruta med ok eller cancel och den returnerar true eller false beroende på vad användaren
+            //väljer.
+            if (!confirm("Är du säker på att du vill ta bort meddelandet?")) {
+                return;
+            }
+            
             var id = boxId.replace("chatMessage", "");
             //Tar bort 1 element ur arrayen
             this.messages.splice(id, 1);
@@ -68,6 +75,7 @@ var MessageBoard = {
             
             this.renderAllMessages();
         },
+        
         
         timeStamp: function(time, boxId){
             //Få ut det unika id:t på en box och sedan hämta ut hela tidsstämpeln från just det meddelandet i arrayen
@@ -98,11 +106,11 @@ var MessageBoard = {
             box.className = "boxMassage";
             
             var time = document.createTextNode(message.getDateText());
-            var textMsg = document.createTextNode(message.getHTMLText());
+        
             deleteButton.innerHTML = "Ta bort";
             timeButton.innerHTML = "Full tid";
             
-            pTagText.appendChild(textMsg);
+            pTagText.innerHTML = message.getHTMLText();
             pTime.appendChild(time);
             box.appendChild(pTagText);
             box.appendChild(pTime);
