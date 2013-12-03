@@ -1,54 +1,67 @@
-var MessageBoard = {
+var MessageBoard = function(divId){
+        //Skapar boxar, textnoder, rubriker, knappar och textfält
+        var div = document.createElement("div");
+        var h1 = document.createElement("h1").appendChild(document.createTextNode("Labby Message"));
+        var divMessageBox = document.createElement("div");
+        var divMessageCount = document.createElement("div");
+        var textArea = document.createElement("textarea");
+        var sendButton = document.createElement("button");
         
-        messages: [],
+        var that = this;
+        var messages = [];
         
-        init: function(){
-            var that = this;
-            
-            var sendButton = document.getElementById("send");
+        this.init = function(){
+            //Sätter ett classnamn så att du kan stila den med css
+            div.className = "large-6 columns";
+            div.appendChild(h1);
+            div.appendChild(divMessageBox);
+            div.appendChild(divMessageCount);
+            div.appendChild(textArea);
+            div.appendChild(sendButton);
+            document.querySelector("main").appendChild(div);
+                
             //That = this ger mig en referens till mitt MessageBoard object. Den anonyma funktionen är en referens till den fuktionen
             //som ska köras när eventet triggas
             sendButton.addEventListener("click", function(e){
                 that.send(e);
             }, false);
             //Gör så att om man trycker på enter knappen så skickas man direkt till send funktionen
-            document.addEventListener("keypress", function(e){
+            textArea.addEventListener("keypress", function(e){
                 var key = e.keyCode;
                 if(key === 13 && !e.shiftKey){
                     that.send(e);
                 }
             }, false);
             
-        },
+        };
         
-        send: function(e){
+        this.send = function(e){
             e.preventDefault();
             //Hämtar ut vad som skrivs i chatrutan
-            var strMessage = document.getElementById("textArea").value;
-            var message = new Message(strMessage, new Date());
+            var message = new Message(textArea.value, new Date());
             //Tömmer chatten så att man själv slipper suddar
-            document.getElementById("textArea").value = "";
+            textArea.value = "";
             //Lägger till meddelandet sist i arrayen
-            this.messages.push(message);
+            messages.push(message);
             
             //Skickr meddelandet och id:t i arrayen och man måste ta -1 för att arrayer är 0 indexerade
-            this.renderMessage(message,  (this.messagesCount() - 1));
+            that.renderMessage(message,  (that.messagesCount() - 1));
             
-            this.messagesCountUppdater();
-        },
+            that.messagesCountUppdater();
+        };
         
-        messagesCountUppdater: function(){
+        this.messagesCountUppdater = function(){
             //Uppdaterar längden på arrayen med den nya längden av arrayen och skriver ut det i en box
-            var counterBox = document.getElementById("counter");
-            counterBox.innerHTML = "Antal meddelanden: " + this.messagesCount();
-        },
+            //var counterBox = document.getElementById("counter");
+            divMessageCount.innerHTML = "Antal meddelanden: " + that.messagesCount();
+        };
         
-        messagesCount: function(){
+        this.messagesCount = function(){
             //Tar ut längden på arrayen
-            return this.messages.length;  
-        },
+            return messages.length;  
+        };
         
-        deleteMessage: function(del, boxId){
+        this.deleteMessage = function(del, boxId){
             //byter ut id:t på boxen mot en tomsträng så att man enbart får en siffra
             
             //Confirm är en inbyggd function som ger en ruta med ok eller cancel och den returnerar true eller false beroende på vad användaren
@@ -59,37 +72,36 @@ var MessageBoard = {
             
             var id = boxId.replace("chatMessage", "");
             //Tar bort 1 element ur arrayen
-            this.messages.splice(id, 1);
+            messages.splice(id, 1);
             //Uppdaterar längden på arrayen
-            this.messagesCountUppdater();
+            that.messagesCountUppdater();
             
-            var box = document.getElementById("messagebox");
+            var box = divMessageBox;
             //Tömmer boxen som innehåller alla meddelanden mot en tomsträng
             box.innerHTML = "";
             
-            this.renderAllMessages();
-        },
+            that.renderAllMessages();
+        };
         
         
-        timeStamp: function(time, boxId){
+        this.timeStamp = function(time, boxId){
             //Få ut det unika id:t på en box och sedan hämta ut hela tidsstämpeln från just det meddelandet i arrayen
             var id = boxId.replace("chatMessage", "");
             
-            alert(this.messages[id].getDate());
-        },
+            alert(messages[id].getDate());
+        };
         
-        renderAllMessages: function(){
+        this.renderAllMessages = function(){
             //Loopar igenom arrayen och anropar renderMessage function som bygger upp hela chatobjektet
             //Andra argumentet "i" är en siffra som är arraynumret 
-            for (var i = 0; i < this.messagesCount(); i++) {
-                this.renderMessage(this.messages[i], i);
+            for (var i = 0; i < that.messagesCount(); i++) {
+                that.renderMessage(messages[i], i);
           }  
-        },
+        };
         
-        renderMessage: function(message, id){
+        this.renderMessage = function(message, id){
             //I denna function hämtar jag ut id:n och skapar nya taggar och skapar nya text noder och lägger in alla olika taggar i varandra
-            var that = this;
-            var messageBox = document.getElementById("messagebox");
+            //var messageBox = document.getElementById("messagebox");
             var box = document.createElement("div");
             var pTagText = document.createElement("p");
             var pTime = document.createElement("p");
@@ -104,13 +116,13 @@ var MessageBoard = {
             deleteButton.innerHTML = "Ta bort";
             timeButton.innerHTML = "Full tid";
             
+            divMessageBox.appendChild(box);
             pTagText.innerHTML = message.getHTMLText();
             pTime.appendChild(time);
             box.appendChild(pTagText);
             box.appendChild(pTime);
             box.appendChild(deleteButton);
             box.appendChild(timeButton);
-            messageBox.appendChild(box);
             
             //Kallar på funktionen deleteMessage när man trycker på ta bort knappen
             deleteButton.addEventListener("click", function(del){
@@ -120,9 +132,13 @@ var MessageBoard = {
             timeButton.addEventListener("click", function(time){
                 that.timeStamp(time, box.id);
             }, false);
-        }
+        };
 };
 
 window.onload = function () {
-    MessageBoard.init();
+    var messBoard1 = new MessageBoard("hej");
+    messBoard1.init();
+    
+    var messBoard2 = new MessageBoard("hallå");
+    messBoard2.init();
 };
