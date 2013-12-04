@@ -4,6 +4,32 @@ main{
 }
 
 .boxMassage{
+    background-color: #FFFFFF;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 3px 5px 10px 0;
     border: 1px solid #000000;
     margin-top: 1px;
+}
+
+.button{
+    border-radius: 10px 10px 10px 10px;
+    background-color: #2E2E2E;
+}
+
+.button:hover{
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.button:focus{
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.text{
+    border-radius: 10px 10px 10px 10px;
+}
+
+body{
+    background-color: #2E2E2E;
 }

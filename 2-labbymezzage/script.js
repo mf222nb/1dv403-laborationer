@@ -6,6 +6,9 @@ var MessageBoard = function(divId){
         var divMessageCount = document.createElement("div");
         var textArea = document.createElement("textarea");
         var sendButton = document.createElement("button");
+        textArea.setAttribute("class", "text");
+        sendButton.setAttribute("class", "button");
+        sendButton.innerHTML = "Skicka";
         
         var that = this;
         var messages = [];
@@ -119,8 +122,8 @@ var MessageBoard = function(divId){
             divMessageBox.appendChild(box);
             pTagText.innerHTML = message.getHTMLText();
             pTime.appendChild(time);
-            box.appendChild(pTagText);
             box.appendChild(pTime);
+            box.appendChild(pTagText);
             box.appendChild(deleteButton);
             box.appendChild(timeButton);
             
