@@ -108,24 +108,29 @@ var MessageBoard = function(divId){
             var box = document.createElement("div");
             var pTagText = document.createElement("p");
             var pTime = document.createElement("p");
+            var buttonBox = document.createElement("div");
+            var clearBox = document.createElement("div");
             var deleteButton = document.createElement("a");
             var timeButton = document.createElement("a");
             
             box.id = "chatMessage" + id;
             box.className = "boxMassage";
-            
+
             var time = document.createTextNode(message.getDateText());
-        
-            deleteButton.innerHTML = "Ta bort";
-            timeButton.innerHTML = "Full tid";
+            
+            deleteButton.className = "delete";
+            timeButton.className = "time";
+            clearBox.className = "clear";
             
             divMessageBox.appendChild(box);
             pTagText.innerHTML = message.getHTMLText();
             pTime.appendChild(time);
             box.appendChild(pTime);
             box.appendChild(pTagText);
-            box.appendChild(deleteButton);
-            box.appendChild(timeButton);
+            buttonBox.appendChild(deleteButton);
+            buttonBox.appendChild(timeButton);
+            buttonBox.appendChild(clearBox);
+            box.appendChild(buttonBox);
             
             //Kallar på funktionen deleteMessage när man trycker på ta bort knappen
             deleteButton.addEventListener("click", function(del){
@@ -139,8 +144,7 @@ var MessageBoard = function(divId){
 };
 
 window.onload = function () {
-    var messBoard1 = new MessageBoard("hej");
-    messBoard1.init();
+    new MessageBoard("hej").init();
     
     var messBoard2 = new MessageBoard("hallå");
     messBoard2.init();
