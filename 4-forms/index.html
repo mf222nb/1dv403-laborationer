@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" href="foundation.css">
+	<title>Validering</title>
+</head>
+    <body>
+        <main>
+            <form method="post" action="http://voyager.lnu.se/tekinet/kurser/dtt/wp_webbteknik/process_form.php">
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label>Förnamn</label>
+                        <input type="text" placeholder="Förnamn" value="name" class="empty" />
+                    </div>
+                </div>
+        
+                <div class="row">
+                    <div class="large-4 columns">
+                      <label>Efternamn</label>
+                      <input type="text" placeholder="Efternamn" value="surname" class="empty" />
+                    </div>
+                        <div class="large-4 columns">
+                          <label>Postnummer</label>
+                          <input type="text" placeholder="XXXXX" value="postalcode" />
+                        </div>
+                            <div class="large-4 columns">
+                                <div class="row collapse">
+                                    <label>E-post</label>
+                                    <input type="text" placeholder="E-post" value="email" />
+                                </div>
+                            </div>
+                </div>
+            
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label>Prismodell</label>
+                        <select>
+                            <option value="lag">Låg</option>
+                            <option value="mellan">Mellan</option>
+                            <option value="hog">Hög</option>
+                        </select>
+                    </div>
+                    <button type="submit" value="submit">Genomför köp</button>
+                </div>
+            </form>
+        </main>
+        <script src="script.js"></script>
+    </body>
+</html>
