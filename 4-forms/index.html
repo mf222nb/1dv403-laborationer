@@ -7,27 +7,27 @@
 </head>
     <body>
         <main>
-            <form method="post" action="http://voyager.lnu.se/tekinet/kurser/dtt/wp_webbteknik/process_form.php">
+            <form name"form_name" id="form_name" method="post" action="http://voyager.lnu.se/tekinet/kurser/dtt/wp_webbteknik/process_form.php" onsubmit="return (Validator.validation())">
                 <div class="row">
                     <div class="large-12 columns">
                         <label>Förnamn</label>
-                        <input type="text" placeholder="Förnamn" value="name" class="empty" />
+                        <input type="text" placeholder="Förnamn" name="name" class="empty" />
                     </div>
                 </div>
-        
+                
                 <div class="row">
                     <div class="large-4 columns">
                       <label>Efternamn</label>
-                      <input type="text" placeholder="Efternamn" value="surname" class="empty" />
+                      <input type="text" placeholder="Efternamn" name="surname" class="empty" />
                     </div>
                         <div class="large-4 columns">
                           <label>Postnummer</label>
-                          <input type="text" placeholder="XXXXX" value="postalcode" />
+                          <input type="text" placeholder="XXXXX" name="postalcode" />
                         </div>
                             <div class="large-4 columns">
                                 <div class="row collapse">
                                     <label>E-post</label>
-                                    <input type="text" placeholder="E-post" value="email" />
+                                    <input type="text" placeholder="E-post" name="email" />
                                 </div>
                             </div>
                 </div>
