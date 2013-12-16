@@ -1,32 +1,41 @@
 "use strict";
 
 var Validator = {
-    
-    /*fName: function(){
-        var check = document.getElementsByClassName("empty");
-        for (var i = 0; i < check.length; i++) {
-            check[i].onblur = Validator.onblur();    
-            }
-        }*/
-        
+
     validation: function(){
-        var name = document.forms["form_name"]["name"].value;
-        var surname = document.forms["form_name"]["surname"].value;
-        var email = document.forms["form_name"]["email"].value;
         
-        if (name === "" || name === null) {
-            alert("Fyll i ett namn");
-            return false;
-        }
+        var fName = document.getElementById("fName");
+        fName.onblur = function(){
+            if (fName.value === "" || fName.value === null) {
+                alert("hej");
+            }
+        };
         
-        if (surname === "" || surname === null) {
-            alert("Fyll i ett efternamn");
-            return false;
-        }
-    }
+        var sName = document.getElementById("sName");
+        sName.onblur = function(){
+            if (sName.value === "" || sName.value === null) {
+                alert("då");
+            }
+        };
         
+        var email = document.getElementById("email");
+        email.onblur = function(){
+            //Tagit regexen från zurb foundation
+            if (!email.value.match(/^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/) || email.value === "") {
+                alert("najs");
+            }    
+        };
+        
+        var postCode = document.getElementById("postCode");
+        postCode.onblur = function(){
+            if (postCode.value === "") {
+                alert("tja");
+            }    
+        };
+    },
+    
 };
 
-/*window.onload = function(){
-    Validator.fName();
-};*/
+window.onload = function(){
+    Validator.validation();
+};
