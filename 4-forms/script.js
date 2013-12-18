@@ -2,8 +2,13 @@
 
 var Validator = {
     
+    init: function(){
+        this.validation();
+        this.submit();
+    },
     exist: null,
-
+    errorMsg: null,
+    fieldValues: {},
     validation: function(){
         
         var fName = document.getElementById("fName");
@@ -112,17 +117,92 @@ var Validator = {
                     this.exist = true;
                 }
             }
+            true;
         };
     },
     
+    check: function(){
+        var popup = document.createElement("div");
+        var background = document.createElement("div");
+        var button = document.createElement("button");
+        var button1 = document.createElement("button");
+        var body = document.getElementById("body");
+        var cancel = document.createTextNode("Cancel");
+        var kop = document.createTextNode("Genomför köp");
+        
+        popup.setAttribute("id", "myModal");
+        popup.setAttribute("class", "reveal-modal");
+        background.setAttribute("class", "background");
+        button1.setAttribute("type", "submit");
+        
+        popup.style.display = "block";
+        popup.style.visibility = "visible";
+        
+        button.appendChild(cancel);
+        button1.appendChild(kop);
+        body.insertBefore(background, body.firstChild);
+        body.appendChild(popup);
+        
+        var table = document.createElement("table");
+        var tagName = document.getElementsByTagName("input");
+        
+        
+        for (var i = 0; i < tagName.length; i++) {
+            var input = tagName[i].getAttribute("name");
+            var inputValue = tagName[i].value;
+            
+            var tr = document.createElement("tr");
+            var td = document.createElement("td");
+            var tdI = document.createElement("td");
+            var text = document.createTextNode(input);
+            var textValue = document.createTextNode(inputValue);
+        
+            td.appendChild(text);
+            tdI.appendChild(textValue);
+            tr.appendChild(td);
+            tr.appendChild(tdI);
+            table.appendChild(tr);
+        }
+        var select = document.getElementById("select");
+        var selectName = select.getAttribute("name");
+        var optionText = document.createTextNode(select.options[select.selectedIndex].value);
+        var textName = document.createTextNode(selectName);
+        var tdO = document.createElement("td");
+        var tdName = document.createElement("td");
+        var trSecond = document.createElement("tr");
+        
+        tdName.appendChild(textName);
+        tdO.appendChild(optionText);
+        trSecond.appendChild(tdName);
+        trSecond.appendChild(tdO);
+        table.appendChild(trSecond);
+        popup.appendChild(table);
+        
+        popup.appendChild(button);
+        popup.appendChild(button1);
+        
+        button.addEventListener("click", function(){
+            popup.parentNode.removeChild(popup);
+            background.parentNode.removeChild(background);
+        }, false);
+        
+        button1.addEventListener("click", function() {
+            document.getElementById("form_name").submit();
+        }, false);
+    },
+    
     submit: function(){
-        var form = document.getElementById("form_name");
-        form.onsubmit = function(){
-            return Validator.validation();
-        };
+        var that = this;
+        var button = document.getElementById("button");
+        button.addEventListener("click", function(){
+            that.errorMsg = document.querySelectorAll(".error");
+            if (that.errorMsg.length === 0) {
+                that.check();
+            }
+        }, false);
     },
 };
 
 window.onload = function(){
-    Validator.validation();
+    Validator.init();
 };

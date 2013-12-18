@@ -3,10 +3,11 @@
 <head>
 	<meta charset="UTF-8" />
 	<link rel="stylesheet" href="foundation.css">
+	<link rel="stylesheet" href="style.css">
 	<title>Validering</title>
 </head>
-    <body>
-        <main>
+    <body id="body">
+        <main id="main">
             <form name"form_name" id="form_name" method="post" action="http://voyager.lnu.se/tekinet/kurser/dtt/wp_webbteknik/process_form.php">
                 <div class="row">
                     <div class="large-4 columns" id="fDiv">
@@ -31,10 +32,24 @@
                                 </div>
                             </div>
                 </div>
-            
                 <div class="row">
-                    <button type="submit" value="submit">Genomför köp</button>
+                        <div class="large-4 columns">
+                            <label>Prismodell</label>
+                            <select id="select" name="pris">
+                                <option value="lag">Låg</option>
+                                <option value="mellan">Mellan</option>
+                                <option value="hog">Hög</option>
+                            </select>
+                        </div>
                 </div>
+                <div class="row">
+                    <div class="button-field large-12 columns">
+                        <a href="#" id="button" class="button success">Genomför köp</a>
+                    </div>
+                </div>
+                <!--<div class="row">
+                    <button type="submit" value="submit">Genomför köp</button>
+                </div>-->
             </form>
         </main>
         <script src="script.js"></script>
