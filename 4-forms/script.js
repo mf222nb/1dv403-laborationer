@@ -3,6 +3,11 @@
 var Validator = {
     
     init: function(){
+        var form = document.getElementById("form_name");
+        form.onsubmit = function(e){
+            e.preventDefault();
+        };
+        
         this.validation();
         this.submit();
     },
@@ -117,11 +122,12 @@ var Validator = {
                     this.exist = true;
                 }
             }
-            true;
         };
     },
     
     check: function(){
+        var knappen = document.getElementById("button");
+        knappen.setAttribute("disabled", "disabled");
         var popup = document.createElement("div");
         var background = document.createElement("div");
         var button = document.createElement("button");
@@ -130,13 +136,14 @@ var Validator = {
         var cancel = document.createTextNode("Cancel");
         var kop = document.createTextNode("Genomför köp");
         
+        
         popup.setAttribute("id", "myModal");
         popup.setAttribute("class", "reveal-modal");
+        
+        var popupclass = popup.className;
+        popup.setAttribute("class", popupclass+" displayshow");
         background.setAttribute("class", "background");
         button1.setAttribute("type", "submit");
-        
-        popup.style.display = "block";
-        popup.style.visibility = "visible";
         
         button.appendChild(cancel);
         button1.appendChild(kop);
@@ -182,6 +189,9 @@ var Validator = {
         popup.appendChild(button1);
         
         button.addEventListener("click", function(){
+            var popupclass = popup.className;
+            popupclass = popupclass.split(' ');
+            popup.setAttribute("class", popupclass[0]+"displaynone");
             popup.parentNode.removeChild(popup);
             background.parentNode.removeChild(background);
         }, false);
