@@ -4,24 +4,19 @@ var Desktop = {
     init: function(){
         var that = this;
         var img = document.getElementById("img");
-        var count = 0;
         
         img.addEventListener("click", function(){
-            that.createWindow(count++);
+            that.imgViewer();
         },false);
     },
     
-    createWindow: function(count){
+    createWindow: function(aside, icon, text){
         var that = this;
         var main = document.getElementById("main");
-        
         var header = document.createElement("header");
         var article = document.createElement("article");
-        var aside = document.createElement("aside");
-        var icon = document.createElement("img");
         var closeButton = document.createElement("a");
         var footer = document.createElement("footer");
-        var text = document.createTextNode("Image Viewer");
         
         footer.setAttribute("class", "footer");
         header.setAttribute("class", "header");
@@ -29,7 +24,6 @@ var Desktop = {
         article.setAttribute("class", "article");
         closeButton.setAttribute("class", "delete");
         closeButton.setAttribute("id", "delete");
-        icon.setAttribute("src", "pics/pics_32x32.png");
         
         article.appendChild(header);
         header.appendChild(icon);
@@ -46,6 +40,51 @@ var Desktop = {
     
     removeWindow: function(article){
         article.parentNode.removeChild(article);
+    },
+    
+    imgViewer: function(){
+        var aside = document.createElement("aside");
+        var icon = document.createElement("img");
+        var text = document.createTextNode("Image Viewer");
+        var jasonStr;
+        var img;
+        var thumbUrl;
+        
+        icon.setAttribute("src", "pics/pics_32x32.png");
+        aside.setAttribute("class", "aside");
+        
+        this.createWindow(aside, icon, text);
+        
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function(){
+            if (xhr.readyState === 4) {
+                if (xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
+                    jasonStr = xhr.responseText;
+                    img = JSON.parse(jasonStr);
+                    
+                    for (var i = 0; i < img.length; i++) {
+                        thumbUrl = img[i].thumbURL;
+                        
+                        var image = document.createElement("img");
+                        var box = document.createElement("div");
+                        
+                        box.setAttribute("class", "box");
+                        image.setAttribute("class", "thumb");
+                        
+                        image.src = thumbUrl;
+                        
+                        box.appendChild(image);
+                        aside.appendChild(box);
+                    }
+                }
+                else{
+                    console.log("Läsfel, status:" +xhr.status);
+                }
+            }    
+        };
+        
+        xhr.open("get", "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/", true);
+        xhr.send(null);
     },
 };
 
