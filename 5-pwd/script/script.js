@@ -20,7 +20,6 @@ var Desktop = {
         
         footer.setAttribute("class", "footer");
         header.setAttribute("class", "header");
-        aside.setAttribute("class", "aside");
         article.setAttribute("class", "article");
         closeButton.setAttribute("class", "delete");
         closeButton.setAttribute("id", "delete");
@@ -43,13 +42,12 @@ var Desktop = {
     },
     
     imgViewer: function(){
+        var that = this;
         var aside = document.createElement("aside");
         var icon = document.createElement("img");
         var text = document.createTextNode("Image Viewer");
-        var jasonStr;
-        var img;
-        var thumbUrl;
-        
+        var jasonStr, img, thumbUrl, url;
+
         icon.setAttribute("src", "pics/pics_32x32.png");
         aside.setAttribute("class", "aside");
         
@@ -64,17 +62,28 @@ var Desktop = {
                     
                     for (var i = 0; i < img.length; i++) {
                         thumbUrl = img[i].thumbURL;
+                        url = img[i].URL;
                         
                         var image = document.createElement("img");
                         var box = document.createElement("div");
+                        var photo = document.createElement("img");
+                        
+                        //box.style.width = Math.max(img[i].thumbWidth);
+                        //box.style.height = Math.max(img[i].thumbHeight);
                         
                         box.setAttribute("class", "box");
                         image.setAttribute("class", "thumb");
+                        image.setAttribute("id", "thumb");
                         
-                        image.src = thumbUrl;
+                        image.setAttribute("src", thumbUrl);
+                        photo.setAttribute("src", url);
                         
                         box.appendChild(image);
                         aside.appendChild(box);
+                        
+                        image.addEventListener("click", function(url) {
+                                that.photoViewer(url);
+                        }, false);
                     }
                 }
                 else{
@@ -85,6 +94,11 @@ var Desktop = {
         
         xhr.open("get", "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/", true);
         xhr.send(null);
+    },
+    
+    photoViewer: function(image){
+        //alert(image);
+        console.log(image);   
     },
 };
 
