@@ -1,6 +1,7 @@
 "use strict";
 
 var Desktop = {
+    
     init: function(){
         var that = this;
         var img = document.getElementById("img");
@@ -8,33 +9,6 @@ var Desktop = {
         img.addEventListener("click", function(){
             that.imgViewer();
         },false);
-    },
-    
-    createWindow: function(aside, icon, text){
-        var that = this;
-        var main = document.getElementById("main");
-        var header = document.createElement("header");
-        var article = document.createElement("article");
-        var closeButton = document.createElement("a");
-        var footer = document.createElement("footer");
-        
-        footer.setAttribute("class", "footer");
-        header.setAttribute("class", "header");
-        article.setAttribute("class", "article");
-        closeButton.setAttribute("class", "delete");
-        closeButton.setAttribute("id", "delete");
-        
-        article.appendChild(header);
-        header.appendChild(icon);
-        header.appendChild(text);
-        header.appendChild(closeButton);
-        article.appendChild(aside);
-        article.appendChild(footer);
-        main.appendChild(article);
-        
-        closeButton.addEventListener("click", function() {
-            that.removeWindow(article);
-        }, false);
     },
     
     removeWindow: function(article){
@@ -47,11 +21,12 @@ var Desktop = {
         var icon = document.createElement("img");
         var text = document.createTextNode("Image Viewer");
         var jasonStr, img, thumbUrl, url;
+        var count = 0;
 
         icon.setAttribute("src", "pics/pics_32x32.png");
         aside.setAttribute("class", "aside");
         
-        this.createWindow(aside, icon, text);
+        var myWindow = new CreateWindow(aside, icon, text);
         
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function(){
@@ -65,15 +40,15 @@ var Desktop = {
                         url = img[i].URL;
                         
                         var image = document.createElement("img");
-                        var box = document.createElement("div");
                         var photo = document.createElement("img");
+                        var box = document.createElement("div");
                         
                         //box.style.width = Math.max(img[i].thumbWidth);
                         //box.style.height = Math.max(img[i].thumbHeight);
                         
                         box.setAttribute("class", "box");
                         image.setAttribute("class", "thumb");
-                        image.setAttribute("id", "thumb");
+                        image.setAttribute("id", "thumb" + count++);
                         
                         image.setAttribute("src", thumbUrl);
                         photo.setAttribute("src", url);
@@ -81,8 +56,10 @@ var Desktop = {
                         box.appendChild(image);
                         aside.appendChild(box);
                         
-                        image.addEventListener("click", function(url) {
-                                that.photoViewer(url);
+                        image.addEventListener("click", function(image){
+                            var source = image.target.id.replace("thumb", "");
+                            var result = img[source].URL;
+                            that.photoViewer(result);
                         }, false);
                     }
                 }
@@ -94,11 +71,36 @@ var Desktop = {
         
         xhr.open("get", "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/", true);
         xhr.send(null);
+        
+        var close = myWindow.getButton();
+        close.addEventListener("click", function(){
+            that.removeWindow(myWindow.getArticle());
+        }, false);
     },
     
     photoViewer: function(image){
-        //alert(image);
-        console.log(image);   
+        var that = this;
+        var aside = document.createElement("aside");
+        var icon = document.createElement("img");
+        var text = document.createTextNode("Photo Viewer");
+        var photo = document.createElement("img");
+        
+        icon.setAttribute("src", "pics/pics_32x32.png");
+        aside.setAttribute("class", "aside");
+        photo.setAttribute("src", image);
+        
+        aside.appendChild(photo);
+        
+        var myWindow = new CreateWindow(aside, icon, text);
+        
+        photo.addEventListener("click", function() {
+            alert("hej");
+        }, false);
+        
+        var close = myWindow.getButton();
+        close.addEventListener("click", function(){
+            that.removeWindow(myWindow.getArticle());
+        }, false);
     },
 };
 
