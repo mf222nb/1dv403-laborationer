@@ -5,10 +5,15 @@ var Desktop = {
     init: function(){
         var that = this;
         var img = document.getElementById("img");
+        var rss = document.getElementById("rss");
         
         img.addEventListener("click", function(){
             that.imgViewer();
         },false);
+        
+        rss.addEventListener("click", function() {
+            that.rssViewer();
+        }, false);
     },
     
     removeWindow: function(article){
@@ -20,13 +25,21 @@ var Desktop = {
         var aside = document.createElement("aside");
         var icon = document.createElement("img");
         var text = document.createTextNode("Image Viewer");
-        var jasonStr, img, thumbUrl, url;
+        var loader = document.createElement("img");
+        var jasonStr, img, thumbUrl;
         var count = 0;
-
+        
         icon.setAttribute("src", "pics/pics_32x32.png");
         aside.setAttribute("class", "aside");
+        aside.setAttribute("id", "aside");
         
         var myWindow = new CreateWindow(aside, icon, text);
+        
+        var time = setTimeout(function() {
+                document.getElementById("aside");
+                loader.setAttribute("src", "pics/ajax-loader.gif");
+                aside.nextSibling.appendChild(loader);
+            }, 500);
         
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function(){
@@ -34,24 +47,28 @@ var Desktop = {
                 if (xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
                     jasonStr = xhr.responseText;
                     img = JSON.parse(jasonStr);
-                    
+                    var width = 0;
+                    var height = 0;
                     for (var i = 0; i < img.length; i++) {
                         thumbUrl = img[i].thumbURL;
-                        url = img[i].URL;
                         
                         var image = document.createElement("img");
-                        var photo = document.createElement("img");
                         var box = document.createElement("div");
                         
-                        //box.style.width = Math.max(img[i].thumbWidth);
-                        //box.style.height = Math.max(img[i].thumbHeight);
+                        if (width < img[i].thumbWidth) {
+                            width = img[i].thumbWidth;
+                        }
+                        if (height < img[i].thumbHeight) {
+                            height = img[i].thumbHeight;
+                        }
                         
+                        box.style.width = width + 15 + "px";
+                        box.style.height = height + 15 + "px";
                         box.setAttribute("class", "box");
                         image.setAttribute("class", "thumb");
                         image.setAttribute("id", "thumb" + count++);
                         
                         image.setAttribute("src", thumbUrl);
-                        photo.setAttribute("src", url);
                         
                         box.appendChild(image);
                         aside.appendChild(box);
@@ -62,6 +79,8 @@ var Desktop = {
                             that.photoViewer(result);
                         }, false);
                     }
+                    loader.setAttribute("src", "");
+                    clearTimeout(time);
                 }
                 else{
                     console.log("Läsfel, status:" +xhr.status);
@@ -94,7 +113,7 @@ var Desktop = {
         var myWindow = new CreateWindow(aside, icon, text);
         
         photo.addEventListener("click", function() {
-            alert("hej");
+            document.body.style.backgroundImage = "url(" + image + ")";
         }, false);
         
         var close = myWindow.getButton();
@@ -102,6 +121,12 @@ var Desktop = {
             that.removeWindow(myWindow.getArticle());
         }, false);
     },
+    
+    rssViewer: function(){
+        var url = "http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.dn.se/m/rss/senaste-nytt");
+        var rss = new JsonAjax(url);
+        console.log(rss);
+    }
 };
 
 window.onload = function(){

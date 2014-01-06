@@ -62,17 +62,14 @@
 
 .box{
     float: left;
-    width: 100px;
-    height: 80px;
-    /*padding: 10px;*/
-    margin: 4.6px;
-    line-height: 80px;
-    text-align: center;
+    margin: 10px;
     background: black;
+    text-align: center;
 }
 
 .thumb{
-    vertical-align: middle;
+    margin-top: 7px;
+    margin-bottom: 7px;
 }
 
 #img{
