@@ -1,6 +1,6 @@
 "use strict";
 
-function CreateWindow(article, aside, icon, text){
+function CreateWindow(article, aside, icon, text, count){
     var main = document.getElementById("main");
     var header = document.createElement("header");
     var closeButton = document.createElement("a");
@@ -9,8 +9,18 @@ function CreateWindow(article, aside, icon, text){
     footer.setAttribute("class", "footer");
     header.setAttribute("class", "header");
     article.setAttribute("class", "article");
+    aside.setAttribute("class", "aside");
     closeButton.setAttribute("class", "delete");
     closeButton.setAttribute("id", "delete");
+    
+    article.style.top = count * 10 + "px";
+    article.style.left = count * 10 + "px";
+    
+    article.addEventListener("click", function(article){
+        var focus = article.target;
+        focus.style.zIndex = count + 10;
+        console.log(focus);
+    }, false);
     
     article.appendChild(header);
     header.appendChild(icon);
