@@ -23,6 +23,7 @@ var Desktop = {
     imgViewer: function(){
         var that = this;
         var aside = document.createElement("aside");
+        var article = document.createElement("article");
         var icon = document.createElement("img");
         var text = document.createTextNode("Image Viewer");
         var loader = document.createElement("img");
@@ -31,9 +32,10 @@ var Desktop = {
         
         icon.setAttribute("src", "pics/pics_32x32.png");
         aside.setAttribute("class", "aside");
-        aside.setAttribute("id", "aside");
+        article.style.width = "350px";
+        article.style.height = "300px";
         
-        var myWindow = new CreateWindow(aside, icon, text);
+        var myWindow = new CreateWindow(article, aside, icon, text);
         
         var time = setTimeout(function() {
                 document.getElementById("aside");
@@ -76,7 +78,9 @@ var Desktop = {
                         image.addEventListener("click", function(image){
                             var source = image.target.id.replace("thumb", "");
                             var result = img[source].URL;
-                            that.photoViewer(result);
+                            var urlWidth = img[source].width;
+                            var urlHeight = img[source].height;
+                            that.photoViewer(result, urlWidth, urlHeight);
                         }, false);
                     }
                     loader.setAttribute("src", "");
@@ -97,9 +101,10 @@ var Desktop = {
         }, false);
     },
     
-    photoViewer: function(image){
+    photoViewer: function(image, width, height){
         var that = this;
         var aside = document.createElement("aside");
+        var article = document.createElement("article");
         var icon = document.createElement("img");
         var text = document.createTextNode("Photo Viewer");
         var photo = document.createElement("img");
@@ -107,10 +112,15 @@ var Desktop = {
         icon.setAttribute("src", "pics/pics_32x32.png");
         aside.setAttribute("class", "aside");
         photo.setAttribute("src", image);
+        photo.setAttribute("class", "URL");
         
         aside.appendChild(photo);
         
-        var myWindow = new CreateWindow(aside, icon, text);
+        var myWindow = new CreateWindow(article, aside, icon, text);
+        
+        article.setAttribute("id", "photoViewer");
+        article.style.width = width +"px";
+        article.style.height = height + "px";
         
         photo.addEventListener("click", function() {
             document.body.style.backgroundImage = "url(" + image + ")";
@@ -123,10 +133,14 @@ var Desktop = {
     },
     
     rssViewer: function(){
-        var url = "http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.dn.se/m/rss/senaste-nytt");
-        var rss = new JsonAjax(url);
-        console.log(rss);
-    }
+        var that = this;
+        
+        var myRSSWindow = new RssReader().getWindow();
+        var close = myRSSWindow.getButton();
+        close.addEventListener("click", function(){
+            that.removeWindow(myRSSWindow.getArticle());
+        }, false);
+    },
 };
 
 window.onload = function(){
