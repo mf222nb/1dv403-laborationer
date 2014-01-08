@@ -1,6 +1,6 @@
 "use strict";
 
-function GalleryWindow(counter){
+function GalleryWindow(countY, countX){
     var aside = document.createElement("aside");
     var article = document.createElement("article");
     var icon = document.createElement("img");
@@ -13,7 +13,7 @@ function GalleryWindow(counter){
     article.style.width = "350px";
     article.style.height = "300px";
     
-    var myWindow = new CreateWindow(article, aside, icon, text, counter);
+    var myWindow = new CreateWindow(article, aside, icon, text, countY, countX);
     
     var time = setTimeout(function() {
         document.getElementById("aside");

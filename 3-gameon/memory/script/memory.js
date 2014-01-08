@@ -91,4 +91,5 @@ var MemoryApp = {
 
 window.onload = function(){
     MemoryApp.init(4,4);
+    MemoryApp.init(2, 2);
 };

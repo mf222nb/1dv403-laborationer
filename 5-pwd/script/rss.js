@@ -1,5 +1,5 @@
 "use strict";
-function RssReader(count){ 
+function RssReader(countY, countX){ 
         var aside = document.createElement("aside");
         var article = document.createElement("article");
         var icon = document.createElement("img");
@@ -16,7 +16,7 @@ function RssReader(count){
                 aside.nextSibling.appendChild(loader);
             }, 500);
         
-        var myWindow = new CreateWindow(article, aside, icon, text, count);
+        var myWindow = new CreateWindow(article, aside, icon, text, countY, countX);
         
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function(){
