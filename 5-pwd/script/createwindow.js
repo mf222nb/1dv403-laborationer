@@ -16,10 +16,12 @@ function CreateWindow(article, aside, icon, text, count){
     article.style.top = count * 10 + "px";
     article.style.left = count * 10 + "px";
     
-    article.addEventListener("click", function(article){
-        var focus = article.target;
-        focus.style.zIndex = count + 10;
-        console.log(focus);
+    article.addEventListener("click", function(){
+        var articles = document.querySelectorAll(".article");
+        for (var i = 0; i < articles.length; i++) {
+            articles[i].style.zIndex = 1;
+        }
+        article.style.zIndex = 100;
     }, false);
     
     article.appendChild(header);

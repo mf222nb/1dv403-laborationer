@@ -20,7 +20,7 @@ var Desktop = {
     
     removeWindow: function(article){
         article.parentNode.removeChild(article);
-        this.count--;
+        //this.count--;
     },
     
     imgViewer: function(){
