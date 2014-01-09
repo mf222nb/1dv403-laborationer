@@ -15,7 +15,8 @@ function CreateWindow(article, aside, icon, text, countY, countX){
     
     article.style.top = countY * 10 + "px";
     article.style.left = countX * 10 + "px";
-    
+    //var innerWidth = window.innerWidth;
+    //console.log(article.offsetWidth);
     if (countY === 18) {
         Desktop.countY = 0;
     }

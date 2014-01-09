@@ -9,6 +9,7 @@ var Desktop = {
         var that = this;
         var img = document.getElementById("img");
         var rss = document.getElementById("rss");
+        var game = document.getElementById("game");
         
         img.addEventListener("click", function(){
             that.imgViewer();
@@ -16,6 +17,10 @@ var Desktop = {
         
         rss.addEventListener("click", function() {
             that.rssViewer();
+        }, false);
+        
+        game.addEventListener("click", function() {
+            that.gameWindow();
         }, false);
     },
     
@@ -85,6 +90,20 @@ var Desktop = {
         close.addEventListener("click", function(){
             that.removeWindow(myRSSWindow.getArticle());
         }, false);
+    },
+    
+    gameWindow: function(){
+        this.countY++;
+        this.countX++;
+        var that = this;
+        var article = document.createElement("article");
+        var icon = document.createElement("img");
+        var text = document.createTextNode("Memory Game");
+        
+        var memoryGame = new MemoryApp(4, 4);
+        
+        console.log(memoryGame);
+        //var newWindow = new CreateWindow(article, memoryGame, icon, text, this.countY, this.countX);
     },
 };
 

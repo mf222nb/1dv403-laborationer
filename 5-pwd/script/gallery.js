@@ -2,7 +2,7 @@
 
 function GalleryWindow(countY, countX){
     var aside = document.createElement("aside");
-    var article = document.createElement("article");
+    var article = document.createElement("div");
     var icon = document.createElement("img");
     var text = document.createTextNode("Image Viewer");
     var loader = document.createElement("img");
