@@ -22,7 +22,6 @@ PWD.namespace = function (ns_string) {
 };
 
 PWD.namespace('Classes');
-PWD.namespace('Classes.MemoryGame');
 
 var Desktop = {
     
@@ -77,7 +76,6 @@ var Desktop = {
         var icon = document.createElement("img");
         var text = document.createTextNode("Photo Viewer");
         var photo = document.createElement("img");
-        //var photo = aside.style.backgroundImage = "url(" + image + ")";
         
         icon.setAttribute("src", "pics/pics_32x32.png");
         photo.setAttribute("src", image);

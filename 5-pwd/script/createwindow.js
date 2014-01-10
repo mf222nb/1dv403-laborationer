@@ -17,10 +17,10 @@ PWD.Classes.CreateWindow = function(article, aside, icon, text, countY, countX){
     article.style.left = countX * 10 + "px";
     //var innerWidth = window.innerWidth;
     //console.log(article.offsetWidth);
-    if (countY === 18) {
+    if (article.style.top === "490px") {
         Desktop.countY = 0;
     }
-    if (article.style.left === "1300px") {
+    if (article.style.left === "1320px") {
         Desktop.countX = 0;
         Desktop.countY = 0;
     }
