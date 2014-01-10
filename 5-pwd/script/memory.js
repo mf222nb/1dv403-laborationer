@@ -1,5 +1,5 @@
 "use strict";
-function MemoryApp(rows, cols){
+function MemoryApp(){
 
     var cardArray = [];
     var click = 0;
@@ -8,16 +8,24 @@ function MemoryApp(rows, cols){
     var tries = 0;
     var that = this;
     
-    this.init = function(rows, cols){
+    this.init = function(rows, cols, countY, countX){
         var randomResult = RandomGenerator.getPictureArray(rows, cols);
         
-        that.memoryBoard(rows, cols, randomResult);
+        that.memoryBoard(rows, cols, randomResult, countY, countX);
     };
     
-    this.memoryBoard = function(rows, cols, pictureArray){
+    this.memoryBoard = function(rows, cols, pictureArray, countY, countX){
         var table = document.createElement("table");
         var aside = document.createElement("aside");
+        var article = document.createElement("article");
+        var icon = document.createElement("img");
+        var text = document.createTextNode("Memory Game");
         var index = 0;
+        
+        icon.setAttribute("src", "pics/game.png");
+        article.style.width = "250px";
+        article.style.height = "220px";
+        aside.style.height = "67%";
         
         table.id = ("table");
         table.className = ("table");
@@ -35,6 +43,13 @@ function MemoryApp(rows, cols){
             table.appendChild(tr);
         }
         aside.appendChild(table);
+        
+        var newWindow = new CreateWindow(article, aside, icon, text, countY, countX);
+        
+        var close = newWindow.getButton();
+        close.addEventListener("click", function(){
+            Desktop.removeWindow(newWindow.getArticle());
+        }, false);
     };
     
     this.flipCard = function(card){
@@ -67,15 +82,15 @@ function MemoryApp(rows, cols){
                 }, 1000);
             }
             click = 0;
-            that.score(tries++);
+            //that.score(tries++);
         }
     };
-    this.score = function(tries){
+    /*this.score = function(tries){
         var scoreBox = document.createElement("div");
         var main = document.getElementById("main");
         var p = document.getElementById("pTag").innerHTML = "Antal försök: " + tries;
         
         scoreBox.appendChild(p);
         main.appendChild(scoreBox);
-    };
+    };*/
 }

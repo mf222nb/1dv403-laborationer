@@ -28,6 +28,9 @@ var Desktop = {
         article.parentNode.removeChild(article);
         this.countY--;
         this.countX--;
+        if (this.countY < 0) {
+            this.countY = 0;
+        }
     },
     
     imgViewer: function(){
@@ -85,7 +88,7 @@ var Desktop = {
         this.countX++;
         var that = this;
         
-        var myRSSWindow = new RssReader(this.countY, this.countX).getWindow();
+        var myRSSWindow = new RssReader(this.countY, this.countX).getRSSWindow();
         var close = myRSSWindow.getButton();
         close.addEventListener("click", function(){
             that.removeWindow(myRSSWindow.getArticle());
@@ -95,15 +98,9 @@ var Desktop = {
     gameWindow: function(){
         this.countY++;
         this.countX++;
-        var that = this;
-        var article = document.createElement("article");
-        var icon = document.createElement("img");
-        var text = document.createTextNode("Memory Game");
         
-        var memoryGame = new MemoryApp(4, 4);
-        
-        console.log(memoryGame);
-        //var newWindow = new CreateWindow(article, memoryGame, icon, text, this.countY, this.countX);
+        var memoryGame = new MemoryApp();
+        memoryGame.init(4, 4, this.countY, this.countX);
     },
 };
 

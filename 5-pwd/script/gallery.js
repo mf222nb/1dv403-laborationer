@@ -12,6 +12,7 @@ function GalleryWindow(countY, countX){
     icon.setAttribute("src", "pics/pics_32x32.png");
     article.style.width = "350px";
     article.style.height = "300px";
+    aside.style.height = "81%";
     
     var myWindow = new CreateWindow(article, aside, icon, text, countY, countX);
     
@@ -75,6 +76,6 @@ function GalleryWindow(countY, countX){
     
     
     this.getGalleryWindow = function(){
-            return myWindow;    
+        return myWindow;    
     };
 }

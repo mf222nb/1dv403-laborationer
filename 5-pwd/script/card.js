@@ -7,7 +7,7 @@ function Card(cardId, memory){
     a.href="#";
     a.appendChild(img);
     td.appendChild(a);
-    img.src = "memory/pics/0.png";
+    img.src = "pics/0.png";
     var that = this;
     
     a.onclick = function(){
@@ -25,7 +25,7 @@ function Card(cardId, memory){
     //Vänder upp ett kort
     this.flip = function(){
         a.onclick = null;
-        img.src="memory/pics/" + cardId + ".png";
+        img.src="pics/" + cardId + ".png";
     };
     
     //Vänder tillbaka ett kort
@@ -33,6 +33,6 @@ function Card(cardId, memory){
         a.onclick = function(){
             memory.flipCard(that);
         };
-        img.src = "memory/pics/0.png";
+        img.src = "pics/0.png";
     };
 }

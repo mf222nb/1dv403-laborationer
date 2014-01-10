@@ -9,6 +9,7 @@ function RssReader(countY, countX){
         icon.setAttribute("src", "pics/rss.png");
         article.style.width = "350px";
         article.style.height = "300px";
+        aside.style.height = "76%";
         
         var time = setTimeout(function() {
                 document.getElementById("aside");
@@ -33,7 +34,7 @@ function RssReader(countY, countX){
         xhr.open("get", "http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.dn.se/m/rss/senaste-nytt"), true);
         xhr.send(null);
         
-        this.getWindow = function(){
+        this.getRSSWindow = function(){
             return myWindow;    
         };
 }
