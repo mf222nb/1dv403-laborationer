@@ -1,6 +1,6 @@
 "use strict";
 
-function GalleryWindow(countY, countX){
+PWD.Classes.GalleryWindow = function(countY, countX){
     var aside = document.createElement("aside");
     var article = document.createElement("div");
     var icon = document.createElement("img");
@@ -14,7 +14,8 @@ function GalleryWindow(countY, countX){
     article.style.height = "300px";
     aside.style.height = "81%";
     
-    var myWindow = new CreateWindow(article, aside, icon, text, countY, countX);
+    var myWindowConstructor = PWD.Classes.CreateWindow;
+    var myWindow = new myWindowConstructor(article, aside, icon, text, countY, countX);
     
     var time = setTimeout(function() {
         document.getElementById("aside");
@@ -73,7 +74,6 @@ function GalleryWindow(countY, countX){
     
     xhr.open("get", "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/", true);
     xhr.send(null);
-    
     
     this.getGalleryWindow = function(){
         return myWindow;    

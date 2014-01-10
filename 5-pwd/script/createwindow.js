@@ -1,6 +1,6 @@
 "use strict";
 
-function CreateWindow(article, aside, icon, text, countY, countX){
+PWD.Classes.CreateWindow = function(article, aside, icon, text, countY, countX){
     var main = document.getElementById("main");
     var header = document.createElement("header");
     var closeButton = document.createElement("a");

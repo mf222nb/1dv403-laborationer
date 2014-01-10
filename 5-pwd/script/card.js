@@ -1,5 +1,5 @@
 "use strict";
-function Card(cardId, memory){
+PWD.Classes.Card = function(cardId, memory){
     
     var td = document.createElement("td");
     var a = document.createElement("a");

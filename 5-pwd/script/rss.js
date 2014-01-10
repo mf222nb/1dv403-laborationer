@@ -1,5 +1,5 @@
 "use strict";
-function RssReader(countY, countX){ 
+PWD.Classes.RssReader = function(countY, countX){ 
         var aside = document.createElement("aside");
         var article = document.createElement("article");
         var icon = document.createElement("img");
@@ -9,7 +9,6 @@ function RssReader(countY, countX){
         icon.setAttribute("src", "pics/rss.png");
         article.style.width = "350px";
         article.style.height = "300px";
-        aside.style.height = "76%";
         
         var time = setTimeout(function() {
                 document.getElementById("aside");
@@ -17,7 +16,8 @@ function RssReader(countY, countX){
                 aside.nextSibling.appendChild(loader);
             }, 500);
         
-        var myWindow = new CreateWindow(article, aside, icon, text, countY, countX);
+        var myWindowConstructor = PWD.Classes.CreateWindow;
+        var myWindow = new myWindowConstructor(article, aside, icon, text, countY, countX);
         
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function(){
@@ -34,7 +34,7 @@ function RssReader(countY, countX){
         xhr.open("get", "http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.dn.se/m/rss/senaste-nytt"), true);
         xhr.send(null);
         
-        this.getRSSWindow = function(){
+        this.getWindow = function(){
             return myWindow;    
         };
 }
