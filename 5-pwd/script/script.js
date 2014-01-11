@@ -47,7 +47,8 @@ var Desktop = {
         }, false);
     },
     
-    removeWindow: function(article){
+    removeWindow: function(article, interval){
+        clearInterval(interval);
         article.parentNode.removeChild(article);
         this.countY--;
         this.countX--;
@@ -76,11 +77,14 @@ var Desktop = {
         var icon = document.createElement("img");
         var text = document.createTextNode("Photo Viewer");
         var photo = document.createElement("img");
+        var reset = document.createElement("img");
         
         icon.setAttribute("src", "pics/pics_32x32.png");
         photo.setAttribute("src", image);
         photo.setAttribute("class", "URL");
         article.setAttribute("id", "photoViewer");
+        reset.setAttribute("src", "pics/undo.png");
+        reset.setAttribute("class", "reset");
         
         aside.appendChild(photo);
         aside.style.overflow = "hidden";
@@ -98,6 +102,13 @@ var Desktop = {
             document.body.style.backgroundImage = "url(" + image + ")";
         }, false);
         
+        var Win = document.getElementById("photoViewer");
+        Win.firstChild.appendChild(reset);
+        
+        reset.addEventListener("click", function() {
+            document.body.style.backgroundImage = "url(pics/donatello.jpg)";
+        }, false);
+        
         var close = myWindow.getButton();
         close.addEventListener("click", function(){
             that.removeWindow(myWindow.getArticle());
@@ -107,14 +118,10 @@ var Desktop = {
     rssViewer: function(){
         this.countY++;
         this.countX++;
-        var that = this;
         
-        var myRSSWindowConstructor = PWD.Classes.RssReader;
-        var myRSSWindow = new myRSSWindowConstructor(this.countY, this.countX).getWindow();
-        var close = myRSSWindow.getButton();
-        close.addEventListener("click", function(){
-            that.removeWindow(myRSSWindow.getArticle());
-        }, false);
+        var MyRSSWindowConstructor = PWD.Classes.RssReader;
+        new MyRSSWindowConstructor(this.countY, this.countX).getWindow();
+        
     },
     
     gameWindow: function(){

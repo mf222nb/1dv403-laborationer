@@ -6,13 +6,16 @@ PWD.Classes.GalleryWindow = function(countY, countX){
     var icon = document.createElement("img");
     var text = document.createTextNode("Image Viewer");
     var loader = document.createElement("img");
+    
     var jasonStr, img, thumbUrl;
     var count = 0;
     
     icon.setAttribute("src", "pics/pics_32x32.png");
+    
     article.style.width = "350px";
     article.style.height = "300px";
     aside.style.height = "81%";
+    
     
     var myWindowConstructor = PWD.Classes.CreateWindow;
     var myWindow = new myWindowConstructor(article, aside, icon, text, countY, countX);
@@ -72,7 +75,7 @@ PWD.Classes.GalleryWindow = function(countY, countX){
         }    
     };
     
-    xhr.open("get", "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/", true);
+    xhr.open("POST", "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/", true);
     xhr.send(null);
     
     this.getGalleryWindow = function(){

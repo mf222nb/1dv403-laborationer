@@ -7,6 +7,7 @@ PWD.Classes.CreateWindow = function(article, aside, icon, text, countY, countX){
     var footer = document.createElement("footer");
     
     footer.setAttribute("class", "footer");
+    footer.setAttribute("id", "footer");
     header.setAttribute("class", "header");
     article.setAttribute("class", "article");
     aside.setAttribute("class", "aside");
@@ -15,8 +16,6 @@ PWD.Classes.CreateWindow = function(article, aside, icon, text, countY, countX){
     
     article.style.top = countY * 10 + "px";
     article.style.left = countX * 10 + "px";
-    //var innerWidth = window.innerWidth;
-    //console.log(article.offsetWidth);
     if (article.style.top === "490px") {
         Desktop.countY = 0;
     }

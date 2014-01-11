@@ -10,31 +10,39 @@ PWD.Classes.RssReader = function(countY, countX){
         article.style.width = "350px";
         article.style.height = "300px";
         
-        var time = setTimeout(function() {
-                document.getElementById("aside");
-                loader.setAttribute("src", "pics/ajax-loader.gif");
-                aside.nextSibling.appendChild(loader);
-            }, 500);
-        
         var myWindowConstructor = PWD.Classes.CreateWindow;
         var myWindow = new myWindowConstructor(article, aside, icon, text, countY, countX);
         
         var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function(){
-            if (xhr.readyState === 4) {
-                if (xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
-                    var rss = xhr.responseText;
-                    aside.innerHTML = rss;
+        var interval = setInterval(function(){
+            var time = setTimeout(function() {
+                document.getElementById("aside");
+                loader.setAttribute("src", "pics/ajax-loader.gif");
+                aside.nextSibling.appendChild(loader);
+            }, 500);
+            var date = new Date();
+            xhr.onreadystatechange = function(){
+                if (xhr.readyState === 4) {
+                    if (xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
+                        var rss = xhr.responseText;
+                        aside.innerHTML = rss;
+                    }
                 }
-            }
-            loader.setAttribute("src", "");
-            clearTimeout(time);
-        };
+                loader.setAttribute("src", "");
+                clearTimeout(time);
+            };
+            xhr.open("get", "http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.dn.se/m/rss/senaste-nytt"), true);
+            xhr.send(null);
+            
+            aside.nextSibling.innerHTML = "Senast uppdaterad: " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        }, 300000);
         
-        xhr.open("get", "http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.dn.se/m/rss/senaste-nytt"), true);
-        xhr.send(null);
+        var close = myWindow.getButton();
+        close.addEventListener("click", function(){
+            Desktop.removeWindow(myWindow.getArticle(), interval);
+        }, false);
         
         this.getWindow = function(){
             return myWindow;    
         };
-}
+};

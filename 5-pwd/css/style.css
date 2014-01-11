@@ -4,12 +4,21 @@
     background: black;
     margin-top: 52%;
     padding: 0;
-    opacity: 0.7;
+    opacity: 0.8;
 }
+
 body{
     overflow: hidden;
     background-image: url("../pics/donatello.jpg");    
 }
+
+h2{
+    background-color: #262626;
+    border-top: 5px #141414 solid;
+    border-bottom: 5px #141414 solid;
+    color: #BABDBD;
+}
+
 .main{
     width: 100%;
     height: 100%;
@@ -47,6 +56,7 @@ body{
     height: 20px;
     border-radius: 0 0 10px 10px;
     background: #2E2E2E;
+    color: white;
 }
 
 .delete{
@@ -60,22 +70,12 @@ body{
     margin:0 5px 10px 5px;
 }
 
-.image{
-    display: block;
-    float: left;
-    background: url("../pics/leftpicture.png") no-repeat;
-    background-size:25px;
-    background-position:center center;
-    height: 25px;
-    width: 25px;
-    margin:0 5px 10px 5px;
-}
-
 .box{
     float: left;
     margin: 10px;
-    background: black;
+    background: #727371;
     text-align: center;
+    border-radius: 5px 5px 5px 5px;
 }
 
 .thumb{
@@ -90,6 +90,15 @@ body{
 
 .rssFeed{
     overflow: auto;
+}
+
+.reset{
+    float: right;
+    background-size:25px;
+    background-position:center center;
+    height: 25px;
+    width: 25px;
+    margin:0 5px 10px 5px;
 }
 
 #img{
