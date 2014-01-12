@@ -32,6 +32,7 @@ var Desktop = {
         var that = this;
         var img = document.getElementById("img");
         var rss = document.getElementById("rss");
+        var rssAft = document.getElementById("rss1");
         var game = document.getElementById("game");
         
         img.addEventListener("click", function(){
@@ -42,13 +43,20 @@ var Desktop = {
             that.rssViewer();
         }, false);
         
+        rssAft.addEventListener("click", function() {
+            that.rssAftViewer();
+        }, false);
+        
         game.addEventListener("click", function() {
             that.gameWindow();
         }, false);
     },
     
     removeWindow: function(article, interval){
-        clearInterval(interval);
+        if (typeof interval === "number") {
+            clearInterval(interval);    
+        }
+        
         article.parentNode.removeChild(article);
         this.countY--;
         this.countX--;
@@ -102,8 +110,7 @@ var Desktop = {
             document.body.style.backgroundImage = "url(" + image + ")";
         }, false);
         
-        var Win = document.getElementById("photoViewer");
-        Win.firstChild.appendChild(reset);
+        article.firstChild.appendChild(reset);
         
         reset.addEventListener("click", function() {
             document.body.style.backgroundImage = "url(pics/donatello.jpg)";
@@ -120,8 +127,19 @@ var Desktop = {
         this.countX++;
         
         var MyRSSWindowConstructor = PWD.Classes.RssReader;
-        new MyRSSWindowConstructor(this.countY, this.countX).getWindow();
+        var rssWindow = new MyRSSWindowConstructor();
         
+        rssWindow.init(this.countY, this.countX);
+    },
+    
+    rssAftViewer: function(){
+        this.countY++;
+        this.countX++;
+        
+        var MyRSSAftWindowConstructor = PWD.Classes.RssAft;
+        var rssAftWindow = new MyRSSAftWindowConstructor();
+        
+        rssAftWindow.init(this.countY, this.countX);
     },
     
     gameWindow: function(){

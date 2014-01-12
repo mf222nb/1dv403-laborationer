@@ -101,6 +101,16 @@ h2{
     margin:0 5px 10px 5px;
 }
 
+.rss{
+    height: 32px;
+    width: 32px;
+}
+
+.game{
+    height: 32px;
+    width: 32px;
+}
+
 #img{
     margin-top: 1%;
 }

@@ -7,7 +7,7 @@ PWD.Classes.Card = function(cardId, memory){
     a.href="#";
     a.appendChild(img);
     td.appendChild(a);
-    img.src = "pics/0.png";
+    img.src = "pics/0.jpg";
     var that = this;
     
     a.onclick = function(){
@@ -25,7 +25,7 @@ PWD.Classes.Card = function(cardId, memory){
     //Vänder upp ett kort
     this.flip = function(){
         a.onclick = null;
-        img.src="pics/" + cardId + ".png";
+        img.src="pics/" + cardId + ".jpg";
     };
     
     //Vänder tillbaka ett kort
@@ -33,6 +33,6 @@ PWD.Classes.Card = function(cardId, memory){
         a.onclick = function(){
             memory.flipCard(that);
         };
-        img.src = "pics/0.png";
+        img.src = "pics/0.jpg";
     };
-}
+};
