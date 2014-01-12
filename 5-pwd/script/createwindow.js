@@ -12,7 +12,6 @@ PWD.Classes.CreateWindow = function(article, aside, icon, text, countY, countX){
     aside.setAttribute("class", "aside");
     closeButton.setAttribute("class", "delete");
     closeButton.setAttribute("id", "delete");
-    
     article.style.top = countY * 10 + "px";
     article.style.left = countX * 10 + "px";
     if (article.style.top === "490px") {

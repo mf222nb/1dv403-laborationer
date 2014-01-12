@@ -125,21 +125,29 @@ var Desktop = {
     rssViewer: function(){
         this.countY++;
         this.countX++;
+        var icon = document.createElement("img");
         
+        icon.setAttribute("src", "pics/rss.png");
+        icon.setAttribute("class", "rss");
+            
         var MyRSSWindowConstructor = PWD.Classes.RssReader;
         var rssWindow = new MyRSSWindowConstructor();
         
-        rssWindow.init(this.countY, this.countX);
+        rssWindow.init(this.countY, this.countX, icon, "http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.dn.se/m/rss/senaste-nytt"));
     },
     
     rssAftViewer: function(){
         this.countY++;
         this.countX++;
+        var icon = document.createElement("img");
         
-        var MyRSSAftWindowConstructor = PWD.Classes.RssAft;
+        icon.setAttribute("src", "pics/rss1.png");
+        icon.setAttribute("class", "rss");
+        
+        var MyRSSAftWindowConstructor = PWD.Classes.RssReader;
         var rssAftWindow = new MyRSSAftWindowConstructor();
         
-        rssAftWindow.init(this.countY, this.countX);
+        rssAftWindow.init(this.countY, this.countX, icon, "http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.aftonbladet.se/rss.xml"));
     },
     
     gameWindow: function(){
