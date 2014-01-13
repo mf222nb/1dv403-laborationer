@@ -113,7 +113,7 @@ var Desktop = {
         article.firstChild.appendChild(reset);
         
         reset.addEventListener("click", function() {
-            document.body.style.backgroundImage = "url(pics/donatello.jpg)";
+            document.body.style.backgroundImage = "url(pics/background.jpg)";
         }, false);
         
         var close = myWindow.getButton();
