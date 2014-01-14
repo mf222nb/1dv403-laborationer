@@ -5,7 +5,7 @@ PWD.Classes.MemoryGame = function(){
         var click = 0;
         var prevCard = null;
         var currentCard = null;
-        //var tries = 0;
+        var tries = 1;
         var that = this;
         
         this.init = function(rows, cols, countY, countX){
@@ -36,7 +36,7 @@ PWD.Classes.MemoryGame = function(){
         
                 for (var n = 0; n < cols; n++) {
                     var cardConstructor = PWD.Classes.Card;
-                    var card = new cardConstructor(pictureArray[index], that);
+                    var card = new cardConstructor(pictureArray[index], that, aside);
                     cardArray.push(card);
         
                     tr.appendChild(card.getTd());
@@ -55,7 +55,7 @@ PWD.Classes.MemoryGame = function(){
             }, false);
         };
         
-        this.flipCard = function(card){
+        this.flipCard = function(card, aside){
             if (prevCard !== null && currentCard !== null) {
                 return;
             }
@@ -85,14 +85,13 @@ PWD.Classes.MemoryGame = function(){
                     }, 1000);
                 }
                 click = 0;
-                //that.score(tries++);
+                tries++;
+                that.score(tries, aside);
             }
         };
-    //this.score = function(tries){
-        //var scoreBox = document.createElement("div");
-        //var main = document.getElementById("main");
-        //var p = document.getElementById("pTag").innerHTML = "Antal försök: " + tries;
-    //};
+    this.score = function(tries, aside){
+        aside.nextSibling.innerHTML = "Antal försök: " + tries;
+    };
     this.getPictureArray = function(rows, cols){
 		var numberOfImages = rows*cols;
 		var maxImageNumber = numberOfImages/2;

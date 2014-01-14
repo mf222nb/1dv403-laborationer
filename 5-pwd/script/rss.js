@@ -13,16 +13,10 @@ PWD.Classes.RssReader = function(){
     var myWindowConstructor = PWD.Classes.CreateWindow;
     var myWindow = new myWindowConstructor(article, aside, icon, text, countY, countX);
     
-    var time = setTimeout(function() {
-        document.getElementById("aside");
-        loader.setAttribute("src", "pics/ajax-loader.gif");
-        aside.nextSibling.appendChild(loader);
-    }, 500);
-    
-    that.xhrCall(time, aside, loader, url);
+    that.xhrCall(aside, loader, url);
     
     var interval = setInterval(function(){
-        that.xhrCall(time, aside, loader);
+        that.xhrCall(aside, loader);
     }, 300000);
     
     var close = myWindow.getButton();
@@ -31,7 +25,13 @@ PWD.Classes.RssReader = function(){
     }, false);
 };
     
-    this.xhrCall = function(time, aside, loader, url){
+    this.xhrCall = function(aside, loader, url){
+        var time = setTimeout(function() {
+            document.getElementById("aside");
+            loader.setAttribute("src", "pics/ajax-loader.gif");
+            aside.nextSibling.appendChild(loader);
+        }, 500);
+        
         var xhr = new XMLHttpRequest();
         
         var date = new Date();

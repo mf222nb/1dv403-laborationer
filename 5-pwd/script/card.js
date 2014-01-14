@@ -1,5 +1,5 @@
 "use strict";
-PWD.Classes.Card = function(cardId, memory){
+PWD.Classes.Card = function(cardId, memory, aside){
     
     var td = document.createElement("td");
     var a = document.createElement("a");
@@ -11,7 +11,7 @@ PWD.Classes.Card = function(cardId, memory){
     var that = this;
     
     a.onclick = function(){
-        memory.flipCard(that);
+        memory.flipCard(that, aside);
     };
     
     this.getTd = function(){

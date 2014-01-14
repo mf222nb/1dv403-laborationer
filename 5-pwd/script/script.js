@@ -103,9 +103,6 @@ var Desktop = {
         article.style.width = width +"px";
         article.style.height = height + "px";
         
-        article.style.top = "10px";
-        article.style.left = "500px";
-        
         photo.addEventListener("click", function() {
             document.body.style.backgroundImage = "url(" + image + ")";
         }, false);
