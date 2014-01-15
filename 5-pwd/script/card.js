@@ -10,6 +10,7 @@ PWD.Classes.Card = function(cardId, memory, aside){
     img.src = "pics/0.jpg";
     var that = this;
     
+    //Skickar med en referens av Card till flipCard functionen, när man klickar på en av bilderna.
     a.onclick = function(){
         memory.flipCard(that, aside);
     };

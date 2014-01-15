@@ -1,5 +1,6 @@
 "use strict";
 
+//Skapar namespaces så att inte allt ligger på DOM:en.
 var PWD = PWD || {};
 
 PWD.namespace = function (ns_string) {
@@ -28,6 +29,7 @@ var Desktop = {
     countX: 0,
     countY: 0,
     
+    //Gör så att alla bilder går att klicka på och kommer till en egen function i programmet.
     init: function(){
         var that = this;
         var img = document.getElementById("img");
@@ -52,6 +54,7 @@ var Desktop = {
         }, false);
     },
     
+    //Tar bort ett fönster och ett intervall om det finns.
     removeWindow: function(article, interval){
         if (typeof interval === "number") {
             clearInterval(interval);    
@@ -62,6 +65,7 @@ var Desktop = {
         this.countX--;
     },
     
+    //Kallar på ett nytt gallerifönster när man trycker på bilden.
     imgViewer: function(){
         this.countY++;
         this.countX++;
@@ -76,6 +80,7 @@ var Desktop = {
         }, false);
     },
     
+    //Skapar ett nytt fönster när man trycker på en bild i gallerifönstret för att få upp den bilden i sin fulla storlek, och så kan man byta bakgrund om man trycker på bilden men kan också byta tillbaka till den gamla bakgrunden med hjälp av en annan knapp.
     photoViewer: function(image, width, height){
         this.countY++;
         this.countX++;
@@ -119,6 +124,7 @@ var Desktop = {
         }, false);
     },
     
+    //SKapar ett nytt rss - fönster för Dagens Nyheter.
     rssViewer: function(){
         this.countY++;
         this.countX++;
@@ -133,6 +139,7 @@ var Desktop = {
         rssWindow.init(this.countY, this.countX, icon, "http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.dn.se/m/rss/senaste-nytt"));
     },
     
+    //Skapar ett nytt rss - fönster för aftonbladet.
     rssAftViewer: function(){
         this.countY++;
         this.countX++;
@@ -147,6 +154,7 @@ var Desktop = {
         rssAftWindow.init(this.countY, this.countX, icon, "http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.aftonbladet.se/rss.xml"));
     },
     
+    //Skapar ett nytt memory spel som är 4x4 rutor stort.
     gameWindow: function(){
         this.countY++;
         this.countX++;

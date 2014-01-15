@@ -1,94 +1,101 @@
 "use strict";
 
 PWD.Classes.MemoryGame = function(){
-        var cardArray = [];
-        var click = 0;
-        var prevCard = null;
-        var currentCard = null;
-        var tries = 1;
-        var that = this;
+    var cardArray = [];
+    var click = 0;
+    var prevCard = null;
+    var currentCard = null;
+    var tries = 1;
+    var that = this;
+    
+    this.init = function(rows, cols, countY, countX){
+        var randomResult = this.getPictureArray(rows, cols);
         
-        this.init = function(rows, cols, countY, countX){
-            var randomResult = this.getPictureArray(rows, cols);
-            
-            that.memoryBoard(rows, cols, randomResult, countY, countX);
-        };
+        that.memoryBoard(rows, cols, randomResult, countY, countX);
+    };
+    
+    //Skapar en tabell och ett nytt kort och lägger in kortet i en array och lägger in de olika table elementen i varandra.
+    //Skapaar nytt fönster och lägger in tabellen med allting i fönstret.
+    this.memoryBoard = function(rows, cols, pictureArray, countY, countX){
+        var table = document.createElement("table");
+        var aside = document.createElement("aside");
+        var article = document.createElement("article");
+        var icon = document.createElement("img");
+        var text = document.createTextNode("Memory Game");
+        var index = 0;
         
-        this.memoryBoard = function(rows, cols, pictureArray, countY, countX){
-            var table = document.createElement("table");
-            var aside = document.createElement("aside");
-            var article = document.createElement("article");
-            var icon = document.createElement("img");
-            var text = document.createTextNode("Memory Game");
-            var index = 0;
-            
-            icon.setAttribute("src", "pics/game.png");
-            icon.setAttribute("class", "game");
-            article.style.width = "300px";
-            article.style.height = "340px";
-            aside.style.height = "85%";
-            
-            table.id = ("table");
-            table.className = ("table");
-            
-            for (var i = 0; i < rows; i++) {
-                var tr = document.createElement("tr");
+        icon.setAttribute("src", "pics/game.png");
+        icon.setAttribute("class", "game");
+        article.style.width = "300px";
+        article.style.height = "340px";
+        aside.style.height = "85%";
         
-                for (var n = 0; n < cols; n++) {
-                    var cardConstructor = PWD.Classes.Card;
-                    var card = new cardConstructor(pictureArray[index], that, aside);
-                    cardArray.push(card);
+        table.id = ("table");
+        table.className = ("table");
         
-                    tr.appendChild(card.getTd());
-                    index++;
-                }
-                table.appendChild(tr);
+        for (var i = 0; i < rows; i++) {
+            var tr = document.createElement("tr");
+    
+            for (var n = 0; n < cols; n++) {
+                var cardConstructor = PWD.Classes.Card;
+                //Skickar man med en referens av memoryBoard till Card.
+                var card = new cardConstructor(pictureArray[index], that, aside);
+                cardArray.push(card);
+    
+                tr.appendChild(card.getTd());
+                index++;
             }
-            aside.appendChild(table);
-            
-            var myWindowConstructor = PWD.Classes.CreateWindow;
-            var newWindow = new myWindowConstructor(article, aside, icon, text, countY, countX);
-            
-            var close = newWindow.getButton();
-            close.addEventListener("click", function(){
-                Desktop.removeWindow(newWindow.getArticle());
-            }, false);
-        };
+            table.appendChild(tr);
+        }
+        aside.appendChild(table);
         
-        this.flipCard = function(card, aside){
-            if (prevCard !== null && currentCard !== null) {
-                return;
-            }
+        var myWindowConstructor = PWD.Classes.CreateWindow;
+        var newWindow = new myWindowConstructor(article, aside, icon, text, countY, countX);
+        
+        var close = newWindow.getButton();
+        close.addEventListener("click", function(){
+            Desktop.removeWindow(newWindow.getArticle());
+        }, false);
+    };
+        
+        
+    //Vänder upp ett kort och håller koll på hur många gånger man har klickat så att man inte kan vända upp mer kort än max 2.
+    this.flipCard = function(card, aside){
+        if (prevCard !== null && currentCard !== null) {
+            return;
+        }
+        
+        click++;
+        
+        if (click === 1) {
+            card.flip();
+            prevCard = card;
+            return;
+        }
+        if (click === 2) {
+            card.flip();
+            currentCard = card;
             
-            click++;
-            
-            if (click === 1) {
-                card.flip();
-                prevCard = card;
-                return;
+            if (prevCard.getId() === currentCard.getId()) {
+                click = 0;
+                prevCard = null;
+                currentCard = null;
             }
-            if (click === 2) {
-                card.flip();
-                currentCard = card;
-                
-                if (prevCard.getId() === currentCard.getId()) {
-                    click = 0;
+            else{
+                setTimeout(function() {
+                    prevCard.getReset();
+                    currentCard.getReset();
                     prevCard = null;
                     currentCard = null;
-                }
-                else{
-                    setTimeout(function() {
-                        prevCard.getReset();
-                        currentCard.getReset();
-                        prevCard = null;
-                        currentCard = null;
-                    }, 1000);
-                }
-                click = 0;
-                tries++;
-                that.score(tries, aside);
+                }, 1000);
             }
-        };
+            click = 0;
+            tries++;
+            that.score(tries, aside);
+        }
+    };
+    
+    //När man vänt upp 2 kort så ökar den antalet försök med 1 hela tiden och skriver ut det.    
     this.score = function(tries, aside){
         aside.nextSibling.innerHTML = "Antal försök: " + tries;
     };

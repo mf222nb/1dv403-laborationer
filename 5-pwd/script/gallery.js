@@ -1,5 +1,6 @@
 "use strict";
 
+//Skapar ett fönster med bilder i som man kan klicka på, skapandet sker genom ett ajax - anrop till en server som bilderna ligger i och returnerar hela fönstret så att man kommer åt det från andra ställen än bara här.
 PWD.Classes.GalleryWindow = function(countY, countX){
     var aside = document.createElement("aside");
     var article = document.createElement("div");

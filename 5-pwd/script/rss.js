@@ -1,4 +1,6 @@
 "use strict";
+
+//Skapar ett fönster med en rss feed beroende på vilken url som kommer in så blir det olika nyheter.
 PWD.Classes.RssReader = function(){
     this.init = function(countY, countX, icon, url){
     var that = this;
@@ -25,6 +27,7 @@ PWD.Classes.RssReader = function(){
     }, false);
 };
     
+    //Gör ajax - anrop så att man kan få ut texten i föntret.
     this.xhrCall = function(aside, loader, url){
         var time = setTimeout(function() {
             document.getElementById("aside");

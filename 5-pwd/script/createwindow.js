@@ -1,5 +1,6 @@
 "use strict";
 
+//Skapar ett fönster, håller reda på vad nya fönster ska ligga och returnerar fönster så man kan komma åt dem från andra skript.
 PWD.Classes.CreateWindow = function(article, aside, icon, text, countY, countX){
     var main = document.getElementById("main");
     var header = document.createElement("header");
@@ -45,4 +46,4 @@ PWD.Classes.CreateWindow = function(article, aside, icon, text, countY, countX){
     this.getButton = function(){
         return closeButton;    
     };
-}
+};
